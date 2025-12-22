@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Anderson Foods{% endblock %}</title>
+
+    <!-- MAIN CSS FILE -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <div class="logo">🍽 Anderson Foods</div>
+
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/menu" class="nav-link">Menu</a></li>
+                <li><a href="/cart" class="nav-link">Cart</a></li>
+            </ul>    
+                    {% set count = session.get('cart', []) | length %}
+                    {% if count > 0 %}
+                        <span class="badge">{{ count }}</span>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        © 2023 Anderson Foods. All rights reserved.
+    </footer>
+<script>
+    const links = document.querySelectorAll(".nav-link");
+    const current = window.location.pathname;
+
+    links.forEach(link => {
+        if (link.getAttribute("href") === current) {
+            link.classList.add("active");
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Orders{% endblock %}
+{% block content %}
+<div class="admin-container">
+    <h2 class="admin-title">📦 Admin Orders</h2>
+
+{% if orders %}
+    {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header">
+            <p><strong>Name:</strong> {{ order.name }}</p>
+            <p><strong>Phone:</strong> {{ order.phone }}</p>
+            <p><strong>Payment:</strong> {{ order.payment }}</p>
+            <p><strong>Status:</strong> {{ order.status }}</p>
+            <form method="POST" action="/admin/confirm/{{ order.id }}">
+                <button type="submit">Confirm Payment</button>
+            </form>
+            <p class="status {{ order.status|lower }}">
+                {{ order.status }}
+            </p>
+            <div class="order-actions">
+                <p class="order-total">GHS {{ order.total }}</p>
+                <a href="/admin/order/{{ order.id }}/status" class="btn status-btn">
+                    Toggle Status
+                </a>
+            
+        <form method="POST"
+              action="{{ url_for('delete_order', order_id=order.id) }}"
+              onsubmit="return confirm('Delete this order?')"
+              style="display:inline;">
+        <button type="submit" class="btn btn-danger">
+        Delete
+        </button>
+    </form>
+            </div>  
+        </div>    
+    {% endfor %}
+    {% else %}
+        <p class="no orders">No orders yet.</p>
+{% endif %}
+        </div>
+{% endblock %}

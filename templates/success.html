@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Order Successful | Anderson Foods{% endblock %}
+
+{% block content %}
+<div class="card success-card">
+  <div class="success-icon">✓</div>
+
+  <h1 class="page-title">Order Successful!</h1>
+
+  <p class="success-text">
+    Thank you <strong>{{ name }}</strong>, your order has been placed successfully.
+  </p>
+
+  <p class="success-text">
+    Total Amount: <strong>GHS {{ total }}</strong>
+  </p>
+
+  <a href="{{ url_for('menu') }}" class="btn btn-primary">
+    Back to Menu
+  </a>
+</div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Anderson Foods{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero" style="background-image: url('/static/images/hero.jpg');">
+    <div class="hero-overlay">
+        <h1>Fresh Local Meals, Delivered Fast</h1>
+        <p>Delicious Ghanaian dishes prepared fresh and delivered to you.</p>
+       <div class="hero-buttons">
+    <a href="/menu" class="btn btn-menu">View Menu</a>
+    <a href="https://wa.me/233549937287" class="btn btn-whatsapp">Order on WhatsApp</a>
+</div>
+    </div>
+</section>
+<section class="features">
+    <h2>Why Choose Anderson Foods?</h2>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>🍲 Freshly Cooked</h3>
+            <p>Meals are prepared fresh daily using quality local ingredients.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🚚 Fast Delivery</h3>
+            <p>Quick and reliable delivery within your area.</p>
+        </div>
+        <div class="feature-card">
+            <h3>💰 Affordable Prices</h3>
+            <p>Enjoy delicious meals at pocket-friendly prices.</p>
+        </div>
+        <div class="feature-card">
+            <h3>📱 Easy Ordering</h3>
+            <p>Order online or directly via WhatsApp in seconds.</p>
+        </div>
+    </div>
+</section>
+<section class="steps">
+    <h2>How It Works</h2>
+    <div class="step-grid">
+        <div>🛒<h4>Choose Meal</h4><p>Select from our menu</p></div>
+        <div>📝<h4>Place Order</h4><p>Add to cart or WhatsApp</p></div>
+        <div>👨‍🍳<h4>We Prepare</h4><p>Freshly cooked</p></div>
+        <div>🚴<h4>Fast Delivery</h4><p>Right to your door</p></div>
+    </div>
+</section>
+<section class="promo">
+    <h2>🔥 Today’s Specials</h2>
+
+    <div class="promo-cards">
+        <div class="promo-card">
+            <h3>Banku & Tilapia</h3>
+            <p>🔥 GHS 45</p>
+        </div>
+
+        <div class="promo-card">
+            <h3>Jollof Rice & Chicken</h3>
+            <p>🔥 GHS 30</p>
+        </div>
+
+        <div class="promo-card">
+            <h3>Yam & Palava Sauce</h3>
+            <p>🔥 GHS 25</p>
+        </div>
+    </div>
+</section>
+
+<!-- POPULAR MEALS -->
+<section class="popular">
+    <h2>Popular Meals</h2>
+
+    <div class="meal-grid">
+        <div class="meal-card">
+            <img src="/static/images/Jollof.jpg">
+            <h4>Jollof Rice & Chicken</h4>
+            <p>Rich smoky jollof served with juicy chicken.</p>
+        </div>
+
+        <div class="meal-card">
+            <img src="/static/images/banku.jpg">
+            <h4>Banku & Tilapia</h4>
+            <p>Grilled tilapia with fresh pepper.</p>
+        </div>
+
+        <div class="meal-card">
+            <img src="/static/images/Yam.jpg">
+            <h4>Yam & Palava Sauce</h4>
+            <p>Soft yam with delicious palava sauce.</p>
+        </div>
+    </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+    <h2>What Our Customers Say</h2>
+
+    <div class="review-grid">
+        <div class="review">
+            ⭐⭐⭐⭐⭐
+            <p>"Food arrived hot and tasty. Highly recommended!"</p>
+            <small>- Mohammed J.</small>
+        </div>
+
+        <div class="review">
+            ⭐⭐⭐⭐⭐
+            <p>"Best Banku & Tilapia I’ve had in a long time."</p>
+            <small>- Abdul F.</small>
+        </div>
+
+        <div class="review">
+            ⭐⭐⭐⭐⭐
+            <p>"Fast delivery and excellent customer service."</p>
+            <small>- Amina S.</small>
+        </div>
+    </div>
+</section>
+
+<!-- DELIVERY AREAS -->
+<section class="delivery">
+    <h2>Delivery Locations</h2>
+    <p>We currently deliver to:</p>
+
+    <ul>
+        <li>📍 Tamale Central</li>
+        <li>📍 Lamashegu</li>
+        <li>📍 Vittin</li>
+        <li>📍 Sakasaka</li>
+        <li>📍 Kalpohin</li>
+    </ul>
+</section>
+<section class="location">
+    <h2>📍 Our Location</h2>
+    <p>Fast delivery across Tamale and nearby areas</p>
+
+    <div class="map-container">
+        <iframe 
+            src="https://www.google.com/maps?q=Tamale%20Ghana&output=embed"
+            loading="lazy">
+        </iframe>
+    </div>
+</section>
+
+{% endblock %}

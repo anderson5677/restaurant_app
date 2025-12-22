@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Anderson Foods{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Your Cart</h1>
+
+{% if cart %}
+<div class="cart-box">
+        {% for item in cart %}
+        <div class="cart-item">
+            <span>{{ item.name }}</span>
+            <span>GHS {{ item.price }}</span>
+                
+            <a href="{{ url_for('remove_item', index=loop.index0) }}">
+                <button class="btn danger">Remove</button>
+                </a>
+            </div>
+        {% endfor %}
+        
+        <div class="cart-total">
+            <strong>Total:</strong> GHS {{ total }}
+        </div>
+    <a href="{{ url_for('checkout') }}">
+        <button class="btn checkout">Proceed to Checkout</button>
+    </a>
+</div>
+{% else %}
+<p class="empty">Your cart is empty</p>
+<a href="{{ url_for('menu') }}">Back to Home</a>
+{% endif %}
+{% endblock %}

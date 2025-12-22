@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Anderson Foods{% endblock %}
+
+{% block content %}
+<div class="card">
+<h1 class="page-title">Checkout</h1>
+
+<div class="section-title">Order Summary</div>
+<ul class="order-list">
+    {% for item in cart %}
+    <li class="order-row">
+        <span>{{ item.name }}</span>
+        <span>GHS {{ item.price }}</span>
+        </li>
+    {% endfor %}
+</ul>
+
+<div class="total-row">
+   <span>Total</span>
+    <strong>GHS {{ total }}</strong>
+</div>
+<div class="section-title">Your Details</div>
+
+{% if error %}
+  <p class="error-text">{{ error }}
+{% endif %}
+
+<form method="post" class="form">
+ <div class="form-group">
+    <label>Name</label>
+    <input class="input" type="text" name="name" required>
+ </div>
+
+ <div class="form-group">
+    <label>Phone</label>
+    <input class="input" type="text" name="phone" required>
+ </div>
+
+    <button class="btn btn-primary" type="submit">Place Order</button>
+ 
+    <h3>Payment Method</h3>
+
+<label>
+    <input type="radio" name="payment_method" value="MoMo" required>
+    MTN Mobile Money
+</label>
+
+<p class="momo-info">
+    Pay to: <strong>0549937287</strong><br>
+    Name: <strong>Anderson Foods</strong>
+    Reference: <strong>Your Name</strong>
+</p>   
+</form>
+{% endblock %}

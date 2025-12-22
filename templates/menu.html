@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Anderson Foods{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Our Menu</h1>
+
+<div class="menu-grid">
+    {% for food in foods %}
+    <div class="menu-card">
+        <img src="{{ url_for('static', filename='images/' + food.image) }}"
+             alt="{{ food.name }}"
+             class="menu-image"
+        
+            <h3>{{ food.name }}</h3>
+            <p class="description">{{ food.description }}</p>
+            <p class="price">GHS {{ food.price }}</p>
+            
+            <form action="{{ url_for('add_to_cart', item_id=food.id) }}" method="get">
+                <div class="qty-box">
+                    <button type="button" onclick="this.nextElementSibiling.stepDown()">-</button>
+                    <input type="number" name="qty" value="1" min="1">
+                    <button type="button" onclick="this.previousElementSiblings.stepUp()">+</button>
+                </div>
+                <a href="{{ url_for('add_to_cart', item_id=food.id) }}?qty=1">
+                <button type="submit" class="btn-primary">Add to Cart</button>
+            </form>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
