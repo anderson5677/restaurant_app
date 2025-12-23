@@ -15,23 +15,72 @@ MENU_ITEMS = [
     {
         "id": 1,
         "name": "Banku & Tilapia",
+        "description": "Fresh grilled tilapia served with banku and hot pepper",
         "price": 45,
         "image": "banku.jpg"
-        "description": "Freshly grilled tilapia served with soft banku and pepper."
     },
     {
         "id": 2,
-        "name": "Yam & Palava Sauce",
-        "price": 25,
-        "image": "yam.jpg"
-        "description": "Boiled yam with palava sauce."
+        "name": "Jollof Rice & Chicken",
+        "description": "Classic Ghanaian jollof rice with fried chicken",
+        "price": 30,
+        "image": "jollof.jpg"
     },
     {
         "id": 3,
-        "name": "Jollof Rice & Chicken",
+        "name": "Yam & Palava Sauce",
+        "description": "Boiled yam served with palava sauce",
+        "price": 25,
+        "image": "yam.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Fried Rice & Chicken",
+        "description": "Vegetable fried rice with crispy chicken",
+        "price": 35,
+        "image": "fried_rice.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Waakye Special",
+        "description": "Waakye with spaghetti, egg, gari, fish and shito",
         "price": 30,
-        "image": "jollof.jpg"
-        "description": "Classic Ghanaian jollof with fried chicken."
+        "image": "waakye.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Plain Rice & Stew",
+        "description": "White rice served with tomato stew and meat",
+        "price": 20,
+        "image": "rice_stew.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Kelewele",
+        "description": "Spicy fried ripe plantain",
+        "price": 15,
+        "image": "kelewele.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Chicken Shawarma",
+        "description": "Grilled chicken shawarma with sauce",
+        "price": 25,
+        "image": "shawarma.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Indomie & Egg",
+        "description": "Stir-fried indomie noodles with egg",
+        "price": 15,
+        "image": "indomie.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Assorted Fried Meat",
+        "description": "Fried beef, gizzard and sausage",
+        "price": 20,
+        "image": "fried_meat.jpg"
     }
 ]
 
