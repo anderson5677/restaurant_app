@@ -16,22 +16,22 @@ MENU_ITEMS = [
         "id": 1,
         "name": "Banku & Tilapia",
         "price": 45,
-        "image": "banku.jpg",
-        "description": "Freshly grilled tilapia served with soft banku and pepper"
+        "image": "banku.jpg"
+        "description": "Freshly grilled tilapia served with soft banku and pepper."
     },
     {
         "id": 2,
         "name": "Yam & Palava Sauce",
         "price": 25,
-        "image": "yam.jpg",
-        "description": "Boiled yam with palava sauce"
+        "image": "yam.jpg"
+        "description": "Boiled yam with palava sauce."
     },
     {
         "id": 3,
         "name": "Jollof Rice & Chicken",
         "price": 30,
-        "image": "jollof.jpg",
-        "description": "Classic Ghanaian jollof with fried chicken"
+        "image": "jollof.jpg"
+        "description": "Classic Ghanaian jollof with fried chicken."
     }
 ]
 
