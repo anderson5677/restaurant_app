@@ -782,3 +782,13 @@ body {
   max-width: 800px;
   padding: 20px;
 }
+.menu-search {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    margin: 20px auto;
+    display: block;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
