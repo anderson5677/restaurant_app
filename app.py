@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, session, request, flash
 import requests
 import uuid
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.secret_key = "secret123"
 
 # ================= ADMIN CREDENTIALS =================
@@ -229,4 +229,4 @@ def verify(reference):
 
 # ================= RUN APP ===========================
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
