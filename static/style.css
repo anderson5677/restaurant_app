@@ -1472,165 +1472,42 @@ body {
     border-radius: 12px;
     margin-bottom: 10px;
 }
-/* ================= MOBILE MENU FIX ================= */
-@media (max-width: 600px) {
-
-  body {
-    font-size: 14px;
-  }
-
-  .menu-grid {
-    grid-template-columns: 1fr;
-    padding: 12px;
-    gap: 14px;
-  }
-
-  .menu-card {
-    padding: 14px;
-    border-radius: 14px;
-  }
-
-  /* IMAGE FIX */
-  .menu-image {
-    height: 120px;              /* 🔑 KEY FIX */
-    width: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-
-  /* TITLE */
-  .menu-card h3 {
-    font-size: 16px;
-    margin: 8px 0 4px;
-  }
-
-  .description {
-    font-size: 13px;
-    line-height: 1.4;
-  }
-
-  .price {
-    font-size: 15px;
-    margin: 6px 0;
-  }
-
-  /* QUANTITY FIX */
-  .qty-box {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin: 6px 0;
-  }
-
-  .qty-box button {
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
-    border-radius: 8px;
-  }
-
-  .qty-box input {
-    width: 44px;
-    height: 36px;
-    font-size: 14px;
-    text-align: center;
-  }
-
-  /* BUTTON FIX */
-  .btn-primary {
-    height: 44px;               /* 🔑 KEY FIX */
-    font-size: 14px;
-    border-radius: 10px;
-    margin-top: 6px;
+/* FORCE MOBILE MENU LAYOUT */
+@media (max-width: 768px) {
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 }
-/* ================= MOBILE CART FIX ================= */
-@media (max-width: 600px) {
+/* COMPACT MENU CARD */
+.menu-card {
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
 
-  .cart-container {
-    padding: 16px;
-  }
+/* Image */
+.menu-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
 
-  .cart-title {
-    font-size: 22px;
-    margin-bottom: 12px;
-    text-align: center;
-  }
+/* Text */
+.menu-card h3 {
+  font-size: 14px;
+  margin: 6px 0 2px;
+}
 
-  /* Empty cart card */
-  .empty-cart {
-    width: 100%;
-    padding: 20px;
-    border-radius: 14px;
-    text-align: center;
-    margin: 0;
-  }
+.menu-card .description {
+  font-size: 12px;
+  line-height: 1.3;
+  height: 32px;
+  overflow: hidden;
+}
 
-  .empty-cart p {
-    font-size: 15px;
-    margin-bottom: 14px;
-  }
-
-  /* Back to menu button */
-  .empty-cart a,
-  .empty-cart button {
-    width: 100%;
-    height: 46px;
-    font-size: 15px;
-    border-radius: 12px;
-  }
-
-  /* Cart item card (when items exist) */
-  .cart-card {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 12px;
-    border-radius: 14px;
-  }
-
-  .cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .cart-item-name {
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .cart-item-price {
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-  /* Quantity controls */
-  .cart-qty button {
-    width: 34px;
-    height: 34px;
-    font-size: 18px;
-    border-radius: 8px;
-  }
-
-  /* Checkout section */
-  .cart-summary {
-    position: sticky;
-    bottom: 0;
-    background: #fff;
-    padding: 14px;
-    border-top: 1px solid #eee;
-  }
-
-  .checkout-btn {
-    width: 100%;
-    height: 48px;
-    font-size: 16px;
-    border-radius: 12px;
-  }
-
-  /* Footer spacing */
-  footer {
-    margin-top: 40px;
-  }
+.menu-card .price {
+  font-weight: bold;
+  margin: 6px 0;
 }
