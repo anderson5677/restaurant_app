@@ -1606,3 +1606,23 @@ body {
     font-size: 16px;
   }
 }
+/* ===== MOBILE VIEW: NO GRID ===== */
+@media (max-width: 768px) {
+
+  .menu-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .menu-card {
+    width: 100%;
+  }
+
+  .menu-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
