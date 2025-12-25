@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Sales Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+
+  <h2 class="dashboard-title">📊 Sales Dashboard</h2>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h4>Total Sales</h4>
+      <p>GHS {{ "%.2f"|format(total_sales) }}</p>
+    </div>
+
+    <div class="stat-card">
+      <h4>Total Orders</h4>
+      <p>{{ total_orders }}</p>
+    </div>
+
+    <div class="stat-card success">
+      <h4>Completed</h4>
+      <p>{{ completed_orders }}</p>
+    </div>
+
+    <div class="stat-card warning">
+      <h4>Pending</h4>
+      <p>{{ pending_orders }}</p>
+    </div>
+
+    <div class="stat-card info">
+      <h4>Today’s Sales</h4>
+      <p>GHS {{ "%.2f"|format(today_sales) }}</p>
+    </div>
+  </div>
+
+  <div class="dashboard-actions">
+    <a href="{{ url_for('admin_orders') }}" class="btn btn-primary">View Orders</a>
+  </div>
+
+</div>
+{% endblock %}

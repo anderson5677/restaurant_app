@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="admin-nav">
+  <a href="/admin/dashboard">Dashboard</a>
+  <a href="/admin/orders">Orders</a>
+  <a href="/admin/logout">Logout</a>
+</nav>
+
+<div class="admin-content">
+  {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

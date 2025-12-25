@@ -2,3 +2,4 @@ Flask
 requests
 africastalking
 gunicorn
+flask_sqlalchemy

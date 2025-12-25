@@ -1,15 +1,54 @@
 from flask import Flask, render_template, redirect, url_for, session, request, flash
-import requests
-import uuid
+from flask_sqlalchemy import SQLAlchemy
+from functools import wraps
+from datetime import datetime
+
 app = Flask(__name__, static_folder="static", static_url_path="/static")
-app.secret_key = "secret123"
+app.secret_key = "super-secret-admin-key-123"
+
+import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "database.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
 
 # ================= ADMIN CREDENTIALS =================
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "admin123"
 
-# ================= GLOBAL STORAGE ====================
-orders = []
+def admin_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not session.get("is_admin"):
+            return redirect(url_for("admin_login"))
+        return f(*args, **kwargs)
+    return decorated
+
+
+# ================= MODELS =================
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    order_number = db.Column(db.String(20), unique=True)
+    name = db.Column(db.String(100))
+    phone = db.Column(db.String(20))
+    total = db.Column(db.Float, nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.now())
+
+    status = db.Column(db.String(20), default="Pending")
+
+    items = db.relationship("OrderItem", backref="order", lazy=True)
+
+
+class OrderItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey("order.id"), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
 
 MENU_ITEMS = [
     {
@@ -17,6 +56,7 @@ MENU_ITEMS = [
         "name": "Banku & Tilapia",
         "description": "Fresh grilled tilapia served with banku and hot pepper",
         "price": 45,
+        "quantity": 1,
         "image": "banku.jpg"
     },
     {
@@ -24,6 +64,7 @@ MENU_ITEMS = [
         "name": "Jollof Rice & Chicken",
         "description": "Classic Ghanaian jollof rice with fried chicken",
         "price": 30,
+        "quantity": 1,
         "image": "jollof.jpg"
     },
     {
@@ -31,6 +72,7 @@ MENU_ITEMS = [
         "name": "Yam & Palava Sauce",
         "description": "Boiled yam served with palava sauce",
         "price": 25,
+        "quantity": 1,
         "image": "yam.jpg"
     },
     {
@@ -38,6 +80,7 @@ MENU_ITEMS = [
         "name": "Fried Rice & Chicken",
         "description": "Vegetable fried rice with crispy chicken",
         "price": 35,
+        "quantity": 1,
         "image": "fried_rice.jpg"
     },
     {
@@ -45,6 +88,7 @@ MENU_ITEMS = [
         "name": "Waakye Special",
         "description": "Waakye with spaghetti, egg, gari, fish and shito",
         "price": 30,
+        "quantity": 1,
         "image": "waakye.jpg"
     },
     {
@@ -52,6 +96,7 @@ MENU_ITEMS = [
         "name": "Plain Rice & Stew",
         "description": "White rice served with tomato stew and meat",
         "price": 20,
+        "quantity": 1,
         "image": "rice_stew.jpg"
     },
     {
@@ -59,6 +104,7 @@ MENU_ITEMS = [
         "name": "Kelewele",
         "description": "Spicy fried ripe plantain",
         "price": 15,
+        "quantity": 1,
         "image": "kelewele.jpg"
     },
     {
@@ -66,6 +112,7 @@ MENU_ITEMS = [
         "name": "Chicken Shawarma",
         "description": "Grilled chicken shawarma with sauce",
         "price": 25,
+        "quantity": 1,
         "image": "shawarma.jpg"
     },
     {
@@ -73,6 +120,7 @@ MENU_ITEMS = [
         "name": "Indomie & Egg",
         "description": "Stir-fried indomie noodles with egg",
         "price": 15,
+        "quantity": 1,
         "image": "indomie.jpg"
     },
     {
@@ -80,6 +128,7 @@ MENU_ITEMS = [
         "name": "Assorted Fried Meat",
         "description": "Fried beef, gizzard and sausage",
         "price": 20,
+        "quantity": 1,
         "image": "fried_meat.jpg"
     }
 ]
@@ -130,93 +179,153 @@ def remove_item(index):
     session["cart"] = cart
     return redirect(url_for("cart_page"))
 
-# ================= CHECKOUT ==========================
+@app.route("/success/<int:order_id>")
+def success(order_id):
+    order = Order.query.get_or_404(order_id)
+    return render_template("success.html", order=order)
+
 @app.route("/checkout", methods=["GET", "POST"])
 def checkout():
     cart = session.get("cart", [])
 
     if not cart:
-        return redirect(url_for("cart_page"))
+        flash("Your cart is empty")
+        return redirect(url_for("menu"))
 
-    total = sum(item["price"] for item in cart)
+    total_price = sum(
+        float(item.get("price", 0)) * int(item.get("quantity", 1))
+        for item in cart
+    )
 
     if request.method == "POST":
-        name = request.form["name"]
-        phone = request.form["phone"]
-        payment_method = request.form.get("payment_method")
+        name = request.form.get("name")
+        phone = request.form.get("phone")
 
-        order = {
-            "id": len(orders),
-            "name": name,
-            "phone": phone,
-            "items": cart.copy(),   # IMPORTANT
-            "total": total,
-            "status": "Pending",
-            "payment": payment_method,
-            "status": "Awaiting Payment"
-        }
+        order = Order(
+            name=name,
+            phone=phone,
+            total=total_price,
+            status="Pending"
+        )
 
-        orders.append(order)
+        db.session.add(order)
+        db.session.commit()
+
+        order.order_number = f"AF-{order.id:06d}"
+
+        db.session.commit()
+
+        for item in cart:
+            db.session.add(OrderItem(
+                order_id=order.id,
+                name=item.get("name"),
+                price=float(item.get("price", 0)),
+                quantity=int(item.get("quantity", 1))
+            ))
+
+        db.session.commit()
         session.pop("cart", None)
 
-        return render_template("success.html", name=name, total=total)
+        return redirect(url_for("success", order_id=order.id))
 
-    return render_template("checkout.html", cart=cart, total=total)
-
+    return render_template("checkout.html", cart=cart, total=total_price)
 # ================= ADMIN ORDERS ======================
 @app.route("/admin/orders")
+@admin_required
 def admin_orders():
-    if not session.get("admin_logged_in"):
-        return redirect(url_for("admin_login"))
-
-    return render_template("orders.html", orders=orders)
+    orders = Order.query.order_by(Order.created_at.desc()).all()
+    return render_template("admin_orders.html", orders=orders)
 
 # ================= ADMIN LOGIN =======================
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        print("LOGIN:", username, password)   # DEBUG
+        print("SESSION BEFORE:", dict(session))
 
         if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
-            session["admin_logged_in"] = True
+            session.clear()
+            session["is_admin"] = True
+
+            print("SESSION AFTER:", dict(session))  # DEBUG
+
             return redirect(url_for("admin_orders"))
-        else:
-            flash("Invalid admin credentials")
+
+        return render_template("admin_login.html", error="Invalid credentials")
 
     return render_template("admin_login.html")
 
-@app.route("/admin/order/<int:order_id>/status")
+from sqlalchemy import func
+from datetime import date
+
+@app.route("/admin/dashboard")
+@admin_required
+def admin_dashboard():
+    total_sales = db.session.query(func.sum(Order.total)).scalar() or 0
+    total_orders = Order.query.count()
+    completed_orders = Order.query.filter_by(status="Completed").count()
+    pending_orders = Order.query.filter_by(status="Pending").count()
+
+    today_sales = (
+        db.session.query(func.sum(Order.total))
+        .filter(func.date(Order.created_at) == date.today())
+        .scalar()
+    ) or 0
+
+    return render_template(
+        "admin_dashboard.html",
+        total_sales=total_sales,
+        total_orders=total_orders,
+        completed_orders=completed_orders,
+        pending_orders=pending_orders,
+        today_sales=today_sales
+    )
+
+
+@app.route("/admin/order/<int:order_id>/status", methods=["POST"])
 def update_order_status(order_id):
-    if not session.get("admin_logged_in"):
-        return redirect(url_for("admin_login"))
+    order = Order.query.get_or_404(order_id)
 
-    for order in orders:
-        if order["id"] == order_id:
-            order["status"] = "Delivered" if order["status"] == "Pending" else "Pending"
-            break
+    # Toggle status
+    if order.status == "Pending":
+        order.status = "Completed"
+    else:
+        order.status = "Pending"
 
+    db.session.commit()
     return redirect(url_for("admin_orders"))
 
 @app.route("/admin/order/<int:order_id>/delete", methods=["POST"])
 def delete_order(order_id):
-    global orders
-    orders = [o for o in orders if o["id"] != order_id]
+    order = Order.query.get_or_404(order_id)
 
+    # delete related order items first (important)
+    OrderItem.query.filter_by(order_id=order.id).delete()
+
+    db.session.delete(order)
+    db.session.commit()
+
+    flash("Order deleted successfully", "success")
     return redirect(url_for("admin_orders"))
 
 @app.route("/admin/confirm/<int:order_id>", methods=["POST"])
 def confirm_payment(order_id):
-    for order in orders:
-        if order["id"] == order_id:
-            order["status"] = "Paid"
+    order = Order.query.get_or_404(order_id)
+
+    order.payment = "Confirmed"
+    db.session.commit()
+
+    flash("Payment confirmed", "success")
     return redirect(url_for("admin_orders"))
 
 
 # ================= ADMIN LOGOUT ======================
 @app.route("/admin/logout")
 def admin_logout():
-    session.pop("admin_logged_in", None)
+    session.clear()
     return redirect(url_for("admin_login"))
 
 PAYSTACK_SECRET = "sk_test_xxxxxxxxxxxxxx"
@@ -276,6 +385,9 @@ def verify(reference):
     else:
         return "Payment Failed"
 
+
 # ================= RUN APP ===========================
 if __name__ == "__main__":
-    app.run()
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)

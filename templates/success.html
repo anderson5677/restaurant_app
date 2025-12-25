@@ -6,13 +6,16 @@
   <div class="success-icon">✓</div>
 
   <h1 class="page-title">Order Successful!</h1>
+  <h3>Your order has been placed!</h3>
+  <p>
+    <strong>Order Number:</strong>{{ order.order_number }}</p>
 
   <p class="success-text">
     Thank you <strong>{{ name }}</strong>, your order has been placed successfully.
   </p>
 
   <p class="success-text">
-    Total Amount: <strong>GHS {{ total }}</strong>
+    Total Amount: <strong>GHS {{ "%.2f"|format(order.total) }}</strong>
   </p>
 
   <a href="{{ url_for('menu') }}" class="btn btn-primary">

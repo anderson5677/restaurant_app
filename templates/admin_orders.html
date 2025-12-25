@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Orders{% endblock %}
+{% block content %}
+<div class="admin-container">
+    <h2 class="admin-title">📦 Admin Orders</h2>
+
+{% if orders %}
+    {% for order in orders %}
+        <div class="order-card">
+
+  <div class="order-main">
+    <!-- LEFT -->
+    <div class="order-left">
+      <p><strong>Name:</strong> {{ order.name }}</p>
+
+      <p><strong>Payment:</strong></p>
+      <p>
+        <strong>Order No:</strong>
+        <span class="order-number">{{ order.order_number }}</span>
+      </p>
+      <div class="payment-row">
+        <form method="POST" action="/admin/confirm/{{ order.id }}">
+          <button class="btn confirm-btn">Confirm Payment</button>
+        </form>
+        <span class="order-amount">GHS {{ order.total }}</span>
+      </div>
+
+      <details class="items-dropdown">
+        <summary>View Items ({{ order.items|length }})</summary>
+        <ul>
+          {% for item in order.items %}
+          <li>{{ item.name }} × {{ item.qty }} — GHS {{ item.price }}</li>
+          {% endfor %}
+        </ul>
+      </details>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="order-right">
+      <p><strong>Phone:</strong> {{ order.phone }}</p>
+      <p><strong>Status:</strong></p>
+      <span class="status-badge {{ order.status|lower }}">
+        {{ order.status }}
+      </span>
+
+      <div class="order-actions">
+        <a href="/admin/order/{{ order.id }}/status" class="btn toggle-btn">
+          Toggle Status
+        </a>
+
+        <form method="POST"
+              action="{{ url_for('delete_order', order_id=order.id) }}">
+          <button class="btn delete-btn">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+    {% endfor %}
+    {% else %}
+        <p class="no orders">No orders yet.</p>
+{% endif %}
+        </div>
+{% endblock %}
