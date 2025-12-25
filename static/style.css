@@ -1497,3 +1497,55 @@ body {
     border-radius: 18px;
   }
 }
+.navbar-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 768px) {
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #000;
+    flex-direction: column;
+    display: none;
+    padding: 16px 0;
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    text-align: center;
+    padding: 12px 0;
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 26px;
+    cursor: pointer;
+    color: white;
+  }
+
+  /* Keep Cart badge visible */
+  .cart-link {
+    position: relative;
+    padding-right: 28px;
+  }
+
+  .badge {
+    position: absolute;
+    top: -6px;
+    right: -12px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 999px;
+  }
+}
