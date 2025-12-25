@@ -1538,18 +1538,23 @@ body {
     padding-right: 28px;
   }
 
-  .badge {
-    position: absolute;
-    top: -6px;
-    right: -12px;
-    background: red;
-    color: white;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 999px;
-  }
+ .badge {
+  margin-left: 6px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  vertical-align: middle;
 }
-/* ===== NAVBAR MOBILE FIX ===== */
+}
+/* ===== MOBILE NAVBAR FIX ===== */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
 
 .menu-toggle {
   display: none;
@@ -1573,15 +1578,11 @@ body {
 
   .nav-links {
     display: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
+    position: relative; /* ⬅️ KEY FIX */
     background: #000;
     flex-direction: column;
     text-align: center;
-    padding: 12px 0;
-    z-index: 999;
+    padding: 10px 0;
   }
 
   .nav-links.active {
@@ -1589,21 +1590,15 @@ body {
   }
 
   .nav-links li {
-    padding: 12px 0;
+    padding: 10px 0;
+  }
+}
+@media (max-width: 768px) {
+  .navbar-inner {
+    padding: 10px 14px;
   }
 
-  .cart-link {
-    position: relative;
-  }
-
-  .badge {
-    position: absolute;
-    top: -6px;
-    right: -14px;
-    background: red;
-    color: white;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 999px;
+  .logo {
+    font-size: 16px;
   }
 }
