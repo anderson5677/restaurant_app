@@ -1549,3 +1549,61 @@ body {
     border-radius: 999px;
   }
 }
+/* ===== NAVBAR MOBILE FIX ===== */
+
+.menu-toggle {
+  display: none;
+}
+
+/* Desktop */
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  .menu-toggle {
+    display: block;
+    font-size: 26px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #000;
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 0;
+    z-index: 999;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    padding: 12px 0;
+  }
+
+  .cart-link {
+    position: relative;
+  }
+
+  .badge {
+    position: absolute;
+    top: -6px;
+    right: -14px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 999px;
+  }
+}
