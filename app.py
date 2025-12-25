@@ -81,7 +81,7 @@ MENU_ITEMS = [
         "description": "Vegetable fried rice with crispy chicken",
         "price": 35,
         "quantity": 1,
-        "image": "fried_rice.jpg"
+        "image": "fried.jpg"
     },
     {
         "id": 5,
@@ -97,7 +97,7 @@ MENU_ITEMS = [
         "description": "White rice served with tomato stew and meat",
         "price": 20,
         "quantity": 1,
-        "image": "rice_stew.jpg"
+        "image": "plain.jpg"
     },
     {
         "id": 7,
@@ -113,7 +113,7 @@ MENU_ITEMS = [
         "description": "Grilled chicken shawarma with sauce",
         "price": 25,
         "quantity": 1,
-        "image": "shawarma.jpg"
+        "image": "chicken.jpg"
     },
     {
         "id": 9,
@@ -129,7 +129,7 @@ MENU_ITEMS = [
         "description": "Fried beef, gizzard and sausage",
         "price": 20,
         "quantity": 1,
-        "image": "fried_meat.jpg"
+        "image": "assorted.jpg"
     }
 ]
 

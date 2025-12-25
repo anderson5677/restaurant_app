@@ -15,9 +15,11 @@
 <div class="menu-grid">
     {% for food in foods %}
     <div class="menu-card" data-name="{{ food.name }} {{ food.description }}">
-        <img src="{{ url_for('static', filename='images/' + food.image) }}"
-             alt="{{ food.name }}"
-             class="menu-image"
+       <img 
+    src="{{ url_for('static', filename='images/menu/' ~ food.image) }}"
+    alt="{{ food.name }}"
+    class="menu-image"
+    onerror="this.src='/static/images/menu/default.jpg'">
         
             <h3>{{ food.name }}</h3>
             <p class="description">{{ food.description }}</p>
