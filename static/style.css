@@ -1509,3 +1509,10 @@ body {
     font-size: 13px;
   }
 }
+.menu-image {
+  object-fit: cover;
+  border-radius: 10px;
+}
+.menu-card {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
