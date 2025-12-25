@@ -68,29 +68,5 @@
         }
     });
 </script>
-<script>
-  const menuBtn = document.querySelector('.menu-toggle');
-  const mobileNav = document.querySelector('.mobile-nav');
-
-  menuBtn.addEventListener('click', () => {
-    mobileNav.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-  });
-
-  // Close menu when link is clicked
-  document.querySelectorAll('.mobile-nav a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileNav.classList.remove('active');
-      document.body.classList.remove('menu-open');
-    });
-  });
-</script>
-<script>
-function toggleMenu() {
-  const menu = document.getElementById("mobileNav");
-  menu.classList.toggle("active");
-}
-</script>
-
 </body>
 </html>
