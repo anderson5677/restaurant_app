@@ -1472,3 +1472,40 @@ body {
     border-radius: 12px;
     margin-bottom: 10px;
 }
+/* ================= MOBILE FIX ================= */
+@media (max-width: 768px) {
+
+  .menu-grid {
+    grid-template-columns: 1fr; /* ONE column on mobile */
+    gap: 16px;
+  }
+
+  .menu-card {
+    padding: 14px;
+  }
+
+  .menu-image {
+    height: 140px; /* Smaller image */
+  }
+
+  .btn-primary {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .qty-box {
+    margin: 6px 0;
+  }
+
+  .price {
+    font-size: 15px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+}
