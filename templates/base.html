@@ -14,24 +14,43 @@
   
     <!-- NAVBAR -->
     <nav class="navbar">
-        <div class="navbar-inner">
-            <div class="logo">🍽 Anderson Foods</div>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  <div class="navbar-inner">
+    <div class="logo">🍽 Anderson Foods</div>
 
-            <ul class="nav-links">
-                <li><a href="/" class="nav-link">Home</a></li>
-                <li><a href="/menu" class="nav-link">Menu</a></li>
-                <li><a href="/cart" class="nav-link">Cart</a></li>
-            </ul>    
-                    {% set count = session.get('cart', []) | length %}
-                    {% if count > 0 %}
-                        <span class="badge">{{ count }}</span>
-                    {% endif %}
-                </a>
-               
-            </div>
-        </div>
-    </nav>
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <!-- Desktop Nav -->
+    <ul class="nav-links">
+      <li><a href="/" class="nav-link">Home</a></li>
+      <li><a href="/menu" class="nav-link">Menu</a></li>
+      <li class="cart-link">
+        <a href="/cart" class="nav-link">
+          Cart
+          {% set count = session.get('cart', []) | length %}
+          {% if count > 0 %}
+            <span class="badge">{{ count }}</span>
+          {% endif %}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="/">Home</a>
+  <a href="/menu">Menu</a>
+  <a href="/cart">
+    Cart
+    {% if count > 0 %}
+      <span class="badge">{{ count }}</span>
+    {% endif %}
+  </a>
+</div>
+
+</div>
+</nav>
 
     <!-- PAGE CONTENT -->
     <main class="container">
@@ -53,9 +72,28 @@
     });
 </script>
 <script>
+  const menuBtn = document.querySelector('.menu-toggle');
+  const mobileNav = document.querySelector('.mobile-nav');
+
+  menuBtn.addEventListener('click', () => {
+    mobileNav.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+  });
+
+  // Close menu when link is clicked
+  document.querySelectorAll('.mobile-nav a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    });
+  });
+</script>
+<script>
 function toggleMenu() {
-  document.querySelector('.nav-links').classList.toggle('active');
+  const menu = document.getElementById("mobileNav");
+  menu.classList.toggle("active");
 }
 </script>
+
 </body>
 </html>
