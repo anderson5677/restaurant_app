@@ -16,6 +16,7 @@
     <nav class="navbar">
         <div class="navbar-inner">
             <div class="logo">🍽 Anderson Foods</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
             <ul class="nav-links">
                 <li><a href="/" class="nav-link">Home</a></li>
@@ -50,6 +51,11 @@
             link.classList.add("active");
         }
     });
+</script>
+<script>
+function toggleMenu() {
+  document.querySelector('.nav-links').classList.toggle('active');
+}
 </script>
 </body>
 </html>
