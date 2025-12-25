@@ -1472,3 +1472,56 @@ body {
     border-radius: 12px;
     margin-bottom: 10px;
 }
+/* === MENU GRID (SAFE & RESPONSIVE) === */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* === MENU CARD === */
+.menu-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+}
+
+/* === IMAGE (VERY IMPORTANT) === */
+.menu-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* === TEXT === */
+.menu-card h3 {
+  margin: 12px;
+  font-size: 1.1rem;
+}
+
+.menu-card .description {
+  margin: 0 12px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.menu-card .price {
+  margin: 10px 12px;
+  font-weight: bold;
+}
+
+/* === MOBILE TWEAK === */
+@media (max-width: 600px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}
