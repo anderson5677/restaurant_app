@@ -1603,3 +1603,29 @@ body {
     gap: 10px;
   }
 }
+/* =========================
+   FIX MOBILE IMAGE CUTTING
+========================= */
+
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.menu-image {
+  width: 100%;
+  height: 140px;          /* FIXED HEIGHT */
+  object-fit: cover;     /* CROPS, NOT STRETCH */
+  border-radius: 12px;
+}
+
+/* Mobile fine-tuning */
+@media (max-width: 768px) {
+  .menu-image {
+    height: 130px;
+  }
+}
+.menu-card {
+  overflow: hidden;
+}
